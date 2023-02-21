@@ -73,28 +73,11 @@ public class PostActivity extends AppCompatActivity {
         //파이어베이스 인증과 게시글 내용 등록 인스턴스 생성 .
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
-//        ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_dropdown_item);
-//        Spinner spinner = new Spinner(this);
-//        spinner.setAdapter(sAdapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(PostActivity.this, "HIIHI", Toast.LENGTH_SHORT).show();
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//            }
-//        });
-//        arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
-//                android.R.layout.simple_spinner_dropdown_item,
-//                R.array.question);
         arrayAdapter = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_dropdown_item);
 
 
         spinner2 = (Spinner)findViewById(R.id.txt_question_type);
         spinner2.setAdapter(arrayAdapter);
-
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
