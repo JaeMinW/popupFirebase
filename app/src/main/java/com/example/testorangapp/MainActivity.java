@@ -1,12 +1,15 @@
 package com.example.testorangapp;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
+    private Animation fab_open, fab_close;
+    private boolean isFabOpen = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+        binding.appBarMain.fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                toggleFab();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -48,7 +51,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-
+    private void toggleFab() {
+        if (isFabOpen) {
+            ObjectAnimator.ofFloat(binding.appBarMain.fabPost, "translationY", 0f).start();
+            ObjectAnimator.ofFloat(binding.appBarMain.fabAlarm, "translationY", 0f).start();
+            binding.appBarMain.fabPost.setVisibility(View.GONE);
+            binding.appBarMain.fabAlarm.setVisibility(View.GONE);
+            binding.appBarMain.fabMain.setImageResource(R.drawable.ic_fab_add);
+        } else {
+            binding.appBarMain.fabPost.setVisibility(View.VISIBLE);
+            binding.appBarMain.fabAlarm.setVisibility(View.VISIBLE);
+            ObjectAnimator.ofFloat(binding.appBarMain.fabPost, "translationY", -200f).start();
+            ObjectAnimator.ofFloat(binding.appBarMain.fabAlarm, "translationY", -350f).start();
+            binding.appBarMain.fabMain.setImageResource(R.drawable.ic_fab_close);
+        }
+        isFabOpen = !isFabOpen;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -62,4 +80,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }
