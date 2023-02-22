@@ -1,5 +1,7 @@
 package com.example.testorangapp.adapter;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,39 +13,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testorangapp.R;
-import com.example.testorangapp.model.PostTable;
+import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.core.Context;
 
-public class PostListAdapter extends FirebaseRecyclerAdapter<PostTable, PostListAdapter.ViewHolder> {
+
+public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> {
     Context context;
-    /*
 
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostTable> options, Context context) {
+    public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostListTable> options, Context context) {
         super(options);
+        Log.e("OPEROPEWQOR",""+options);
         // options는 파이어베이스 리사이클러뷰에 DB의 쿼리문옵션을 넣어 해당
         // 쿼리문에 맞는 데이터들을 자동 세팅해주기 위해서 사용합니다.
         this.context = context; //Glide 서울액티비티쪽에 사용하기위해 필요
     }
 
     @Override //홀더가 갖고있는 뷰에 데이터들을 세팅해줍니다.
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PostTable model) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PostListTable model) {
         holder.titleTextView.setText(model.getTitle());
-        Glide.with(context).load(model.getImageUrl()).into(holder.postImageView);
+        Glide.with(holder.itemView).load(model.getImageUrl()).into(holder.postImageView);
+        Log.d("titleTextView",""+holder.titleTextView);
+        Log.d("titleTextView",""+holder.itemView);
+
     }
 
     @NonNull
     @Override //뷰를 담을 수 있는 뷰홀더를 생성해줍니다.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.row_recycle_post, viewGroup, false); //우리가쓸려는 chatMessage아이템의 뷰객체 생성
-        return new ViewHolder(view); //각각의 chatMessage아이템을 위한 뷰를 담고있는 뷰홀더객체를 반환한다.
+                .inflate(R.layout.row_recycle_post, viewGroup, false);
+        //우리가쓸려는 chatMessage아이템의 뷰객체 생성
+        return new ViewHolder(view);
+        //각각의 chatMessage아이템을 위한 뷰를 담고있는 뷰홀더객체를 반환한다.
     }
 
 
@@ -58,7 +60,6 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostTable, PostList
         }
     }
 }
-
 
 //
 //public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder>{

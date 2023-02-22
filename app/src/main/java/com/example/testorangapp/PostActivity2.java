@@ -37,7 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 
-public class PostActivity extends AppCompatActivity {
+public class PostActivity2 extends AppCompatActivity {
 
 
     //TESTTTT
@@ -114,7 +114,7 @@ public class PostActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(PostActivity.this, "등록 성공", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostActivity2.this, "등록 성공", Toast.LENGTH_SHORT).show();
                                 //이미지 저장.
                                 for(int i = 0; i<uriList.size();i++) {
                                     Log.d("uriListSize:",""+uriList.size());
@@ -124,7 +124,7 @@ public class PostActivity extends AppCompatActivity {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             //실패했을 때
-                                            Toast.makeText(PostActivity.this, "업로드 실패", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(PostActivity2.this, "업로드 실패", Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
@@ -137,7 +137,7 @@ public class PostActivity extends AppCompatActivity {
                                                 mDatabaseRef.child("Post").child("Category").child(category).child(title).child("MainImage").push().setValue(postTable.getImageUrl());
                                             }
                                             mDatabaseRef.child("Post").child("Category").child(category).child(title).child("Image").push().setValue(postTable.getImageUrl());
-                                            Toast.makeText(PostActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(PostActivity2.this, "업로드 성공", Toast.LENGTH_SHORT).show();
                                             mainImageNum ++;
                                         }
                                     });
@@ -145,7 +145,7 @@ public class PostActivity extends AppCompatActivity {
                                 //
                             }
                             else{
-                                Toast.makeText(PostActivity.this, "등록 실패", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostActivity2.this, "등록 실패", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
