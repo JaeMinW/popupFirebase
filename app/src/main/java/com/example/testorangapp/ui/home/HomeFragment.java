@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.testorangapp.PostActivity;
+import com.example.testorangapp.PostActivity2;
 import com.example.testorangapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -41,7 +41,8 @@ public class HomeFragment extends Fragment {
         CreatePostTable createPostTable = new CreatePostTable();
         binding.btnCreatePost.setOnClickListener(createPostTable);
 
-
+        CreatePostTable1 createPostTable1 = new CreatePostTable1();
+        binding.btnCreateTestPost.setOnClickListener(createPostTable1);
     }
 
     @Override
@@ -54,10 +55,16 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), PostActivity.class);
-            Toast.makeText(getActivity(), "방가방바가", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
+             startActivity(intent);
         }
     }
 
-    
+    class CreatePostTable1 implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getActivity(), PostActivity2.class);
+             startActivity(intent);
+        }
+    }
+
 }

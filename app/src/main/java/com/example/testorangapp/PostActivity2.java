@@ -2,6 +2,7 @@ package com.example.testorangapp;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,19 +51,21 @@ public class PostActivity2 extends AppCompatActivity {
     private FirebaseFunction DB;
     private FirebaseStorage mStorage;
     private StorageReference storageRef ;
+    private String pathUri;
+    private Uri imageUri;
+    ArrayList<String> pathList = new ArrayList<>();
+    ArrayList<Uri> uriList = new ArrayList<>();
+    // imageUri의 객체들을 ArrayList<Uri> uriList에 하나씩 담는다.
+    // 이미지의 uri를 담을 ArrayList 객체
+    // 이 객체에 이미지 값들을 하나씩 담는다.
 
     //리사이클뷰에 띄울 대표이미지 값 선정.
     private int mainImageNum = 1;
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth mFirebaseAuth;
-    ActivityPostBinding activityPostBinding;
-    ArrayList<Uri> uriList = new ArrayList<>();     // 이미지의 uri를 담을 ArrayList 객체
-
-    //임의로 카테고리 지정 for Test.
+    ActivityPostBinding activityPostBinding;        //
+      //임의로 카테고리 지정 for Test.
     private String category = "1" ;
-
-
-    //임의로 카테고리 지정
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +79,6 @@ public class PostActivity2 extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         arrayAdapter = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_dropdown_item);
 
-        getApplicationContext();
         spinner2 = (Spinner)findViewById(R.id.txt_question_type);
         spinner2.setAdapter(arrayAdapter);
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -83,6 +86,9 @@ public class PostActivity2 extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getApplicationContext(),spinner2.getSelectedItem() +"가 선택되었습니다.",
                         Toast.LENGTH_SHORT).show();
+                category = String.valueOf(spinner2.getSelectedItemPosition());
+                Toast.makeText(PostActivity2.this, ""+category, Toast.LENGTH_SHORT).show();
+                Log.d("CATEGOROTOY",""+category);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -103,8 +109,6 @@ public class PostActivity2 extends AppCompatActivity {
             String title = activityPostBinding.etTitle.getText().toString();
 
             //파이어베이스에 게시글 내용 업로드
-//            DB.CreatePostTable(title,content,firebaseUser.getUid());
-            Log.e("ASDF","DASFD");
             PostTable postTable = new PostTable();
             postTable.setUserUid(firebaseUser.getUid());
             postTable.setContent(content);
@@ -115,10 +119,11 @@ public class PostActivity2 extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(PostActivity2.this, "등록 성공", Toast.LENGTH_SHORT).show();
+
                                 //이미지 저장.
                                 for(int i = 0; i<uriList.size();i++) {
                                     Log.d("uriListSize:",""+uriList.size());
-                                    StorageReference riversRef = storageRef.child("Aimages/"+category+"/"+i+"");
+                                    StorageReference riversRef = storageRef.child("Post/"+title+"/");
                                     UploadTask uploadTask = riversRef.putFile(uriList.get(i));
                                     uploadTask.addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -131,14 +136,19 @@ public class PostActivity2 extends AppCompatActivity {
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                             //이미지 저장 성공
                                             postTable.setImageUrl(taskSnapshot.toString());
-                                            Log.d("ImageUrl : ",""+taskSnapshot.toString());
+                                            final Task<Uri> imageUrl = taskSnapshot.getStorage().getDownloadUrl();
+                                            //사진에서 등록할 이미지랑 파이어베이스에 등록할 이미지Url값들을
+                                            //각각 어떻게 분류를 하야 따로 등록할 수 있을까?
+                                            Log.d("ImageUrl : ",""+taskSnapshot.getStorage().getDownloadUrl());
+
+
                                             //메인이미지 폴더 생성. 메인에 리사이클뷰에 띄울 때 대표이미지로 활용할 예정
-                                            if(mainImageNum == 1 ){
-                                                mDatabaseRef.child("Post").child("Category").child(category).child(title).child("MainImage").push().setValue(postTable.getImageUrl());
-                                            }
-                                            mDatabaseRef.child("Post").child("Category").child(category).child(title).child("Image").push().setValue(postTable.getImageUrl());
-                                            Toast.makeText(PostActivity2.this, "업로드 성공", Toast.LENGTH_SHORT).show();
-                                            mainImageNum ++;
+//                                            if(mainImageNum == 1 ){
+//                                                mDatabaseRef.child("Post").child("Category").child(category).child(title).child("MainImage").push().setValue(postTable.getImageUrl());
+//                                            }
+//                                            mDatabaseRef.child("Post").child("Category").child(category).child(title).child("Image").push().setValue(postTable.getImageUrl());
+//                                            Toast.makeText(PostActivity2.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+//                                            mainImageNum ++;
                                         }
                                     });
                                 }
@@ -162,24 +172,23 @@ public class PostActivity2 extends AppCompatActivity {
             startActivityForResult(intent, 2222);
         }
     }
-    //이미지 등록 버튼 클릭 후 이미지 선택 후 돌아오는 메서드
-    @Override
+    @Override //이미지 등록 버튼 클릭 후 이미지 선택 후 돌아오는 메서드
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("resultCode : ",resultCode+"");  //성공했을 때 -1 리턴
         Log.d("requestCode : ",requestCode+"" ); //2222 리턴
         //data : 이미지
-        if(data == null){
-            //이미지 선택안한 경우
-            Toast.makeText(this, "이미지 선택을 하지 않았습니다.", Toast.LENGTH_SHORT).show();
-        }
-        else{ // data 값이 null 이 아닌 경우
+        if(data == null){//이미지 선택안한 경우
+            Toast.makeText(this, "이미지 선택을 하지 않았습니다.", Toast.LENGTH_SHORT).show();}
+        else{ //data 값이 null 이 아닌 경우
             if(data.getClipData() == null){
                 //이미지 한 장 선택한 경우
 //                ClipData clipData = data.getClipData();
 //                Uri imageUri = clipData.getItemAt(0).getUri();
-                Uri imageUri = data.getData();
+                imageUri = data.getData();
                 uriList.add(imageUri);
+                pathUri = getPath(data.getData());
+                pathList.add(pathUri);
             }else{//이미지 여러장 선택한 경우
                 ClipData clipData = data.getClipData();
                 if(clipData.getItemCount()>10){
@@ -200,11 +209,20 @@ public class PostActivity2 extends AppCompatActivity {
                     activityPostBinding.imageRecyclerView.setAdapter(adapter1);
                     RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true);
                     activityPostBinding.imageRecyclerView.setLayoutManager(layoutManager1);
-//                    postImageAdapter = new PostImageAdapter(uriList, getApplicationContext());
-//                    recyclerView.setAdapter(postImageAdapter);
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-                }
+              }
             }
         }
+    }
+    // uri 절대경로 가져오기
+    public String getPath(Uri uri) {
+
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader cursorLoader = new CursorLoader(this, uri, proj, null, null, null);
+
+        Cursor cursor = cursorLoader.loadInBackground();
+        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+        cursor.moveToFirst();
+        return cursor.getString(index);
     }
 }

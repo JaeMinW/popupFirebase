@@ -103,13 +103,13 @@ public class PostActivity extends AppCompatActivity {
             String title = activityPostBinding.etTitle.getText().toString();
 
             //파이어베이스에 게시글 내용 업로드
-//            DB.CreatePostTable(title,content,firebaseUser.getUid());
+            //DB.CreatePostTable(title,content,firebaseUser.getUid());
             Log.e("ASDF","DASFD");
             PostTable postTable = new PostTable();
             postTable.setUserUid(firebaseUser.getUid());
             postTable.setContent(content);
             postTable.setTitle(title);
-            mDatabaseRef.child("Post").child("Category").child(title).push().setValue(content)
+            mDatabaseRef.child("Post").child("Category").child(category).child(title).setValue(postTable)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -118,20 +118,19 @@ public class PostActivity extends AppCompatActivity {
                                 //이미지 저장.
                                 for(int i = 0; i<uriList.size();i++) {
                                     Log.d("uriListSize:",""+uriList.size());
-                                    StorageReference riversRef = storageRef.child("Aimages/"+category+"/"+i+"");
+                                    StorageReference riversRef = storageRef.child("Post/"+title+"/"+title+i);
                                     UploadTask uploadTask = riversRef.putFile(uriList.get(i));
                                     uploadTask.addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            //실패했을 때
                                             Toast.makeText(PostActivity.this, "업로드 실패", Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                             //이미지 저장 성공
-                                            postTable.setImageUrl(taskSnapshot.toString());
-                                            Log.d("ImageUrl : ",""+taskSnapshot.toString());
+                                            postTable.setImageUrl(String.valueOf(taskSnapshot.getUploadSessionUri()));
+                                            Log.d("ImageUrlgetUploadSessionUri : ",""+taskSnapshot.getUploadSessionUri());
                                             //메인이미지 폴더 생성. 메인에 리사이클뷰에 띄울 때 대표이미지로 활용할 예정
                                             if(mainImageNum == 1 ){
                                                 mDatabaseRef.child("Post").child("Category").child(category).child(title).child("MainImage").push().setValue(postTable.getImageUrl());
@@ -155,7 +154,7 @@ public class PostActivity extends AppCompatActivity {
     class UploadImageButtonClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(Intent.ACTION_PICK);
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

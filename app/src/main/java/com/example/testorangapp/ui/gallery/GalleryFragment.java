@@ -44,13 +44,14 @@ public class GalleryFragment extends Fragment {
         FirebaseRecyclerOptions<PostListTable> options = new FirebaseRecyclerOptions.Builder<PostListTable>() //어떤데이터를 어디서갖고올거며 어떠한 형태의 데이터클래스 결과를 반환할거냐 옵션을 정의한다.
                 .setQuery(query, PostListTable.class)
                 .build();
+        Log.e("QUREYEQUREWQ",""+query);
 
         mFirebaseAdapter = new PostListAdapter(options, container.getContext());
         // 리사이클러뷰에 레이아웃 매니저와 어댑터를 설정한다.
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true); //레이아웃매니저 생성
         Log.e("GETCPOCOLNCONC", ""+getContext());
         mRecyclerView.setLayoutManager(layoutManager); ////만든 레이아웃매니저 객체를(설정을) 리사이클러 뷰에 설정해줌
-        mRecyclerView.setAdapter(mFirebaseAdapter); //어댑터 셋 ( 파이어베이스 어댑터는 액티비티 생명주기에 따라서 상태를 모니터링하게하고 멈추게하고 그런 코드를 작성하도록 되있다.==> 밑에 onStart()와 onStop에 구현해놨다)
+        mRecyclerView.setAdapter(mFirebaseAdapter);
 
         final TextView textView = binding.textGallery;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
