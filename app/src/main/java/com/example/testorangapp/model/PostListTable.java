@@ -22,4 +22,5 @@ public class PostListTable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 }

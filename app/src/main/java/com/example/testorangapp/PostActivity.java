@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -60,7 +61,6 @@ public class PostActivity extends AppCompatActivity {
     //임의로 카테고리 지정 for Test.
     private String category = "1" ;
 
-
     //임의로 카테고리 지정
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,6 @@ public class PostActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         arrayAdapter = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_dropdown_item);
-
         getApplicationContext();
         spinner2 = (Spinner)findViewById(R.id.txt_question_type);
         spinner2.setAdapter(arrayAdapter);
@@ -129,19 +128,42 @@ public class PostActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                             //이미지 저장 성공
-                                            postTable.setImageUrl(String.valueOf(taskSnapshot.getUploadSessionUri()));
-                                            Log.d("ImageUrlgetUploadSessionUri : ",""+taskSnapshot.getUploadSessionUri());
+                                            riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    postTable.setImageUrl(uri.toString());
+                                                    Log.d("ImageUrlgetUploadSessionUri3 : ",""+uri.toString());
+                                                    if(mainImageNum == 1 ){
+                                                        mDatabaseRef.child("Post").child("Category").child(category).child(title).child("imageUrl").setValue(postTable.getImageUrl());
+                                                    }
+                                                    mDatabaseRef.child("Post").child("Category").child(category).child(title).child("image").push().setValue(postTable.getImageUrl());
+                                                    Toast.makeText(PostActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+                                                    mainImageNum ++;
+                                                }
+                                            });
+                                            /*
+                                            postTable.setImageUrl(taskSnapshot.getStorage().getDownloadUrl().toString());
+//                                            postTable.setImageUrl(
+//                                                    taskSnapshot.getStorage().getDownloadUrl().toString());
+                                            //postTable.setImageUrl(task.getResult().toString());
+                                            //Log.d("ImageUrlgetUploadSessionUri : ",""+taskSnapshot.getUploadSessionUri());
+                                            //Log.d("ImageUrlgetUploadSessionUri2 : ",""+taskSnapshot.getStorage().getDownloadUrl());
+                                            //Log.d("ImageUrlgetUploadSessionUri3 : ",""+uploadTask.getResult().getStorage().getDownloadUrl().toString());
+                                            Log.d("ImageUrlgetUploadSessionUri3 : ",""+taskSnapshot.getStorage().getDownloadUrl().toString());
                                             //메인이미지 폴더 생성. 메인에 리사이클뷰에 띄울 때 대표이미지로 활용할 예정
                                             if(mainImageNum == 1 ){
-                                                mDatabaseRef.child("Post").child("Category").child(category).child(title).child("MainImage").push().setValue(postTable.getImageUrl());
+                                                mDatabaseRef.child("Post").child("Category").child(category).child(title).child("imageUrl").setValue(postTable.getImageUrl());
                                             }
-                                            mDatabaseRef.child("Post").child("Category").child(category).child(title).child("Image").push().setValue(postTable.getImageUrl());
+                                            mDatabaseRef.child("Post").child("Category").child(category).child(title).child("image").push().setValue(postTable.getImageUrl());
                                             Toast.makeText(PostActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
-                                            mainImageNum ++;
+                                            mainImageNum ++;*/
                                         }
-                                    });
+                                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                                }
+                                            });
                                 }
-                                //
                             }
                             else{
                                 Toast.makeText(PostActivity.this, "등록 실패", Toast.LENGTH_SHORT).show();
@@ -154,7 +176,8 @@ public class PostActivity extends AppCompatActivity {
     class UploadImageButtonClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            //ACTION_OPEN_DOCUMENT
+            Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -175,8 +198,8 @@ public class PostActivity extends AppCompatActivity {
         else{ // data 값이 null 이 아닌 경우
             if(data.getClipData() == null){
                 //이미지 한 장 선택한 경우
-//                ClipData clipData = data.getClipData();
-//                Uri imageUri = clipData.getItemAt(0).getUri();
+                //ClipData clipData = data.getClipData();
+                //Uri imageUri = clipData.getItemAt(0).getUri();
                 Uri imageUri = data.getData();
                 uriList.add(imageUri);
             }else{//이미지 여러장 선택한 경우

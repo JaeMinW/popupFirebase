@@ -32,10 +32,18 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
     @Override //홀더가 갖고있는 뷰에 데이터들을 세팅해줍니다.
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PostListTable model) {
         holder.titleTextView.setText(model.getTitle());
-        Glide.with(holder.itemView).load(model.getImageUrl()).into(holder.postImageView);
+        Glide.with(context).load(model.getImageUrl()).into(holder.postImageView);
+        //Glide.with(context).load(UploadInfo.getImageURL()).into(holder.imageView);
+
+
         Log.d("titleTextView",""+holder.titleTextView);
         Log.d("titleTextView",""+holder.itemView);
-
+        /*
+        ArrayList<PostTable> postTableList= new ArrayList<>();
+        PostTable postTable = postTableList.get(position);
+        holder.titleTextView.setText(postTable.getTitle());
+        //이미지 뷰는 글라이드를 사용할 것.
+        */
     }
 
     @NonNull
@@ -47,7 +55,6 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
         return new ViewHolder(view);
         //각각의 chatMessage아이템을 위한 뷰를 담고있는 뷰홀더객체를 반환한다.
     }
-
 
     //뷰들을 바인딩 해줍니다.
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -63,8 +70,7 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
 
 //
 //public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder>{
-//
-//
+
 //    public class ViewHolder extends RecyclerView.ViewHolder {
 //        public ViewHolder(@NonNull View itemView) {
 //            super(itemView);

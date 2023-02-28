@@ -2,6 +2,7 @@ package com.example.testorangapp.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.View
    @Override
     public void onBindViewHolder(@NonNull ViewHolderClass1 holder, int position) {
         Uri image_uri = list.get(position);
+       Log.d("CONTCNTEXXNTR/POSTACadsasdf",""+context);
+
         Glide.with(context)
                .load(image_uri)
                .into(holder.rowImageView);
