@@ -1,23 +1,20 @@
 package com.example.testorangapp;
 
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testorangapp.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Animation fab_open, fab_close;
     private boolean isFabOpen = false;
+    //
+    //firebase 로직 분리하기
+    //파이어베이스 어뎁터를 이용해서 클릭 가능하게 구현하기
+    //파이어베이스 그리드 뷰형태로 구현.. 이미지 크기 조절까지
+    //파이어베이스 본 게시글구현하기
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
