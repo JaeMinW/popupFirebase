@@ -35,6 +35,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -48,7 +49,8 @@
         android:text="팝업 작성"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        app:layout_anchor="@id/fab_post"
+        app:layout_anchorGravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:visibility="gone"/>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -57,8 +59,9 @@
         android:text="게시글 작성"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
+        app:layout_anchor="@id/fab_main"
+        app:layout_anchorGravity="bottom|end"
         android:visibility="gone"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,9 +70,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="70dp"
         app:rippleColor="@color/black"
         android:src="@drawable/ic_fab_add"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="12dp"
+        app:rippleColor="@color/black"
+        android:src="@drawable/ic_menu_slideshow"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

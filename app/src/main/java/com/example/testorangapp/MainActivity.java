@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 toggleFab();
             }
         });
+        binding.appBarMain.fabTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.appBarMain.scrollView.smoothScrollTo(0,0,500);
+            }
+        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -64,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             binding.appBarMain.fabPost.setVisibility(View.VISIBLE);
             binding.appBarMain.fabAlarm.setVisibility(View.VISIBLE);
-            ObjectAnimator.ofFloat(binding.appBarMain.fabPost, "translationY", -200f).start();
-            ObjectAnimator.ofFloat(binding.appBarMain.fabAlarm, "translationY", -350f).start();
+            ObjectAnimator.ofFloat(binding.appBarMain.fabPost, "translationY", -210f).start();
+            ObjectAnimator.ofFloat(binding.appBarMain.fabAlarm, "translationY", -210f).start();
             binding.appBarMain.fabMain.setImageResource(R.drawable.ic_fab_close);
         }
         isFabOpen = !isFabOpen;
