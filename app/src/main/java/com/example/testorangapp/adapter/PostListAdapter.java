@@ -1,6 +1,7 @@
 package com.example.testorangapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.testorangapp.PostActivity;
 import com.example.testorangapp.R;
 import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -57,13 +59,35 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
     }
 
     //뷰들을 바인딩 해줍니다.
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView titleTextView;
         ImageView postImageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView); //android View로 임포트함
             titleTextView = itemView.findViewById(R.id.tv_row_post_name);
             postImageView = itemView.findViewById(R.id.image_row_post); //업로드한사진
+           /*
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getBindingAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+
+
+                    }
+                }
+            });
+            */
+
+        }
+        //클릭 이벤트에서 동작안하는 문제 발견!1 어케 하면 될까?
+        @Override
+        public void onClick(View view) {
+            Intent intent =new Intent(view.getContext(), PostActivity.class);
+            intent.putExtra("ItemId", getItemId());
+            Log.d("ITEMTIDIDI","::"+getItemId()+"::"+getBindingAdapterPosition());
+
+            view.getContext().startActivity(intent);
         }
     }
 }
