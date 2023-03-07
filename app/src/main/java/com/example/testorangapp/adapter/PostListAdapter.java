@@ -59,7 +59,7 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
     }
 
     //뷰들을 바인딩 해줍니다.
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView titleTextView;
         ImageView postImageView;
         public ViewHolder(@NonNull View itemView) {
@@ -72,22 +72,21 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
                 public void onClick(View view) {
                     int pos = getBindingAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION){
-
-
                     }
                 }
             });
             */
+            itemView.findViewById(R.id.row_recycler_post).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent =new Intent(view.getContext(), PostActivity.class);
+                    intent.putExtra("ItemId", getItemId());
+                    Log.d("ITEMTIDIDI","::"+getItemId()+"::"+getBindingAdapterPosition());
 
-        }
-        //클릭 이벤트에서 동작안하는 문제 발견!1 어케 하면 될까?
-        @Override
-        public void onClick(View view) {
-            Intent intent =new Intent(view.getContext(), PostActivity.class);
-            intent.putExtra("ItemId", getItemId());
-            Log.d("ITEMTIDIDI","::"+getItemId()+"::"+getBindingAdapterPosition());
+                    view.getContext().startActivity(intent);
+                }
+            });
 
-            view.getContext().startActivity(intent);
         }
     }
 }
