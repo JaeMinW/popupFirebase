@@ -20,10 +20,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 
-public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> {
+public class TabLayoutAdapter extends FirebaseRecyclerAdapter<PostListTable, TabLayoutAdapter.ViewHolder> {
     Context context;
 
-    public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostListTable> options, Context context) {
+    public TabLayoutAdapter(@NonNull FirebaseRecyclerOptions<PostListTable> options, Context context) {
         super(options);
         Log.e("OPEROPEWQOR",""+options);
         // options는 파이어베이스 리사이클러뷰에 DB의 쿼리문옵션을 넣어 해당
@@ -105,3 +105,4 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
 //        return 0;
 //    }
 //}
+

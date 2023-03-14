@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testorangapp.adapter.PostListAdapter;
+import com.example.testorangapp.adapter.TabLayoutAdapter;
 import com.example.testorangapp.databinding.FragmentGalleryBinding;
 import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,7 +26,7 @@ import com.google.firebase.database.Query;
 
 public class GalleryFragment extends Fragment {
 
-    private FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<PostListTable, TabLayoutAdapter.ViewHolder> mFirebaseAdapter;
     private RecyclerView mRecyclerView ;
     private FragmentGalleryBinding binding;
     Context mContext ;
@@ -55,7 +55,7 @@ public class GalleryFragment extends Fragment {
                 .build();
         Log.e("QUREYEQUREWQ",""+query);
 
-        mFirebaseAdapter = new PostListAdapter(options, getContext());
+        mFirebaseAdapter = new TabLayoutAdapter(options, getContext());
         // 리사이클러뷰에 레이아웃 매니저와 어댑터를 설정한다.
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true); //레이아웃매니저 생성
         Log.e("GETCPOCOLNCONC", ""+getContext());

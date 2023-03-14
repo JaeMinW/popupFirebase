@@ -36,21 +36,25 @@ android {
 }
 
 dependencies {
+
+    //viewPager2
+    implementation("com.tbuonomo:dotsindicator:4.3")
+    
+    // FirebaseUI for Firebase Auth
+    // FirebaseUI for Cloud Storage
+    // FirebaseUI for Cloud Firestore
     // FirebaseUI for Firebase Realtime Database
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
+    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
 
-    // FirebaseUI for Cloud Firestore
-    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
-
-    // FirebaseUI for Firebase Auth
-    implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
-
-    // FirebaseUI for Cloud Storage
-    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
-
+    //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-       implementation 'androidx.appcompat:appcompat:1.6.1'
+
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
