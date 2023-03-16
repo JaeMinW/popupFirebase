@@ -30,6 +30,7 @@ import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 public class SlideshowFragment extends Fragment {
     ViewPager2 viewPager;
 
+
     private FragmentSlideshowBinding binding;
     private FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> mFirebaseAdapter;
     private RecyclerView mRecyclerView ;
@@ -75,7 +76,7 @@ public class SlideshowFragment extends Fragment {
 
         //탭 이미지 띄우는 창
         new TabLayoutMediator(binding.tabLayout, viewPager,
-                (tab, position) -> tab.setText("OBJECT " + (position + 1))
+                (tab, position) -> tab.setText("popo"+position+1)
         ).attach();
 
 

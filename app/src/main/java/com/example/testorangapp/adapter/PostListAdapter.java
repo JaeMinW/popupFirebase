@@ -19,9 +19,10 @@ import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-
 public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> {
     Context context;
+
+
 
     public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostListTable> options, Context context) {
         super(options);
