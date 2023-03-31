@@ -23,7 +23,6 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
     Context context;
 
 
-
     public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostListTable> options, Context context) {
         super(options);
         Log.e("OPEROPEWQOR",""+options);

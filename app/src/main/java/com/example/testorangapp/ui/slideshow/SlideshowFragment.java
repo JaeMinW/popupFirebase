@@ -20,7 +20,6 @@ import com.example.testorangapp.databinding.FragmentSlideshowBinding;
 import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,13 +60,13 @@ public class SlideshowFragment extends Fragment {
 //        mRecyclerView.setLayoutManager(layoutManager); ////만든 레이아웃매니저 객체를(설정을) 리사이클러 뷰에 설정해줌
 //        mRecyclerView.setAdapter(mFirebaseAdapter);
 
-        viewPager = binding.pager;
-        viewPager.setAdapter(mFirebaseAdapter); //페이지에 띄울 어뎁터를 세팅한다.
-        TabLayout tabLayout = new TabLayout(getContext());
-        tabLayout.addTab(tabLayout.newTab().setText("CATEGORY1"));
-        tabLayout.addTab(tabLayout.newTab().setText("CATEGORY2"));
-        tabLayout.addTab(tabLayout.newTab().setText("CATEGORY3"));
-
+//        viewPager = binding.pager;
+//        viewPager.setAdapter(mFirebaseAdapter); //페이지에 띄울 어뎁터를 세팅한다.
+//        TabLayout tabLayout = new TabLayout(getContext());
+//        tabLayout.addTab(tabLayout.newTab().setText("CATEGORY1"));
+//        tabLayout.addTab(tabLayout.newTab().setText("CATEGORY2"));
+//        tabLayout.addTab(tabLayout.newTab().setText("CATEGORY3"));
+//
         //카드 뷰 이미지를 띄우는 창
         SpringDotsIndicator springDotsIndicator = binding.springDotsIndicator;
         viewPager = binding.cardViewPager;

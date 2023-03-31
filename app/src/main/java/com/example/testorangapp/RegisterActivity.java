@@ -3,25 +3,25 @@ package com.example.testorangapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.testorangapp.databinding.ActivityRegisterBinding;
 import com.example.testorangapp.function.Authentication;
 import com.example.testorangapp.function.Message;
 import com.example.testorangapp.model.UserModel;
+import com.example.testorangapp.viewmodel.LoginViewModel;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    private LoginViewModel viewModel;
     ActivityRegisterBinding activityRegisterBinding;
     private boolean checkPhone = false;
     @Override
@@ -29,12 +29,21 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityRegisterBinding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(activityRegisterBinding.getRoot());
+
+
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+
+
+
         RegisterUserButtonClickListener click = new RegisterUserButtonClickListener();
         activityRegisterBinding.btnRegister.setOnClickListener(click);
         EmailAuthButtonClickListener emailBtn = new EmailAuthButtonClickListener();
         activityRegisterBinding.btnEmailCheck.setOnClickListener(emailBtn);
         SmsAuthButtonClickListener smsBtn = new SmsAuthButtonClickListener();
         activityRegisterBinding.btnPhoneCheck.setOnClickListener(smsBtn);
+
+
     }
     class EmailAuthButtonClickListener implements View.OnClickListener{
         @Override
@@ -118,19 +127,16 @@ public class RegisterActivity extends AppCompatActivity {
             String userPwd = activityRegisterBinding.etUserPwd.getText().toString().trim();
             UserModel UserDB = new UserModel();
             Message message = new Message();
+            //FirebaseRepository
+            //userEmail
+            //userPwd;
 
-            UserDB.getUserData(userEmail,userPwd).
-                    addOnCompleteListener(RegisterActivity.this,
-                            task -> {
-                                if(task.isSuccessful()){
-                                    boolean b = Pattern.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", userEmail);
-                                    UserDB.inputUserData();
-                                    Toast.makeText(RegisterActivity.this, "회원가입성공", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }else{
-                                    Log.w("", "createUserWithEmail:failure", task.getException());
-                                }
-                          });
+            //mvvm
+            viewModel.signUp(userEmail, userPwd);
+
+//            FirebaseRepository firebaseRepository = new FirebaseRepository();
+//            firebaseRepository.createUser(userEmail, userPwd, getApplicationContext());
+
         }
     }
 }
