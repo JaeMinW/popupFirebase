@@ -29,7 +29,6 @@ import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 public class SlideshowFragment extends Fragment {
     ViewPager2 viewPager;
 
-
     private FragmentSlideshowBinding binding;
     private FirebaseRecyclerAdapter<PostTable, PostListAdapter.ViewHolder> mFirebaseAdapter;
     private RecyclerView mRecyclerView ;
