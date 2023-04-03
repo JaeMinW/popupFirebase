@@ -1,4 +1,4 @@
-package com.example.testorangapp;
+package com.example.testorangapp.main;
 
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.testorangapp.R;
 import com.example.testorangapp.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 

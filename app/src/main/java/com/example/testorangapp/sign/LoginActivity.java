@@ -1,4 +1,4 @@
-package com.example.testorangapp;
+package com.example.testorangapp.sign;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.testorangapp.main.MainActivity;
+import com.example.testorangapp.RegisterActivity;
 import com.example.testorangapp.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -54,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()){
-                                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -75,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
     class RegisterButtonClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
     }

@@ -1,4 +1,4 @@
-package com.example.testorangapp.viewmodel;
+package com.example.testorangapp.sign;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

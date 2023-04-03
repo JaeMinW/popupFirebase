@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.testorangapp.PostActivity;
+import com.example.testorangapp.post.PostActivity;
 import com.example.testorangapp.R;
 import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;

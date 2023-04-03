@@ -12,7 +12,7 @@ import com.example.testorangapp.databinding.ActivityRegisterBinding;
 import com.example.testorangapp.function.Authentication;
 import com.example.testorangapp.function.Message;
 import com.example.testorangapp.model.UserModel;
-import com.example.testorangapp.viewmodel.LoginViewModel;
+import com.example.testorangapp.sign.LoginViewModel;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -33,16 +33,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-
-
-
         RegisterUserButtonClickListener click = new RegisterUserButtonClickListener();
         activityRegisterBinding.btnRegister.setOnClickListener(click);
         EmailAuthButtonClickListener emailBtn = new EmailAuthButtonClickListener();
         activityRegisterBinding.btnEmailCheck.setOnClickListener(emailBtn);
         SmsAuthButtonClickListener smsBtn = new SmsAuthButtonClickListener();
         activityRegisterBinding.btnPhoneCheck.setOnClickListener(smsBtn);
-
 
     }
     class EmailAuthButtonClickListener implements View.OnClickListener{

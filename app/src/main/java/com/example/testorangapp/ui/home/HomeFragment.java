@@ -14,11 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testorangapp.PostActivity;
-import com.example.testorangapp.PostActivity2;
 import com.example.testorangapp.adapter.MainPageAdapter;
 import com.example.testorangapp.databinding.FragmentHomeBinding;
+import com.example.testorangapp.model.FirebaseRepository;
 import com.example.testorangapp.model.PostTable;
+import com.example.testorangapp.post.PostActivity;
+import com.example.testorangapp.sign.LoginActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -64,30 +65,6 @@ public class HomeFragment extends Fragment {
         list = new ArrayList<>();
         mainPageAdapter = new MainPageAdapter(getContext(),list);
         recyclerView.setAdapter(mainPageAdapter);
-/*
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-
-                    PostTable post = dataSnapshot.getValue(PostTable.class);
-                    //같은 테이블과 같은 디비구문을 맞추면
-                    // 알아서 키값으로 받아서 올 것 같다.
-
-                    list.add(post);
-
-                }
-                mainPageAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
- */
     }
 
     @Override
@@ -107,8 +84,11 @@ public class HomeFragment extends Fragment {
     class CreatePostTable1 implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), PostActivity2.class);
-             startActivity(intent);
+            FirebaseRepository firebaseRepository = new FirebaseRepository();
+            firebaseRepository.logOut();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         }
     }
 
