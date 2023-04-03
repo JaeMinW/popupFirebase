@@ -19,10 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testorangapp.R;
-import com.example.testorangapp.adapter.PostImageAdapter;
 import com.example.testorangapp.databinding.ActivityPostBinding;
-import com.example.testorangapp.model.FirebaseFunction;
-import com.example.testorangapp.model.PostTable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,7 +45,6 @@ public class PostActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> arrayAdapter;
 
     //이미지 저장 파이어스토어
-    private FirebaseFunction DB;
     private FirebaseStorage mStorage;
     private StorageReference storageRef ;
 
@@ -106,7 +102,7 @@ public class PostActivity extends AppCompatActivity {
             //DB.CreatePostTable(title,content,firebaseUser.getUid());
             Log.e("ASDF","DASFD");
             PostTable postTable = new PostTable();
-            postTable.setUserUid(firebaseUser.getUid());
+            postTable.setPostUser(firebaseUser.getUid());
             postTable.setContent(content);
             postTable.setTitle(title);
             mDatabaseRef.child("Post").child("Category").child(category).child(title).setValue(postTable)

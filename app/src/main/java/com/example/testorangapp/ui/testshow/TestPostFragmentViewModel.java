@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.testorangapp.model.FirebaseRepository;
-import com.example.testorangapp.model.PostTable;
+import com.example.testorangapp.post.PostTable;
 
 import java.util.List;
 

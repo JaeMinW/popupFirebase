@@ -16,7 +16,7 @@ public class UserTable {
     private boolean pushFlag;
     private boolean deletedFlag;
 
-    public UserTable() {
+    public UserTable() { //created Default
         this.adminFlag = false;
         this.deletedFlag = false;
     }

@@ -15,9 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.testorangapp.adapter.PostListAdapter;
 import com.example.testorangapp.databinding.FragmentSlideshowBinding;
-import com.example.testorangapp.model.PostListTable;
+import com.example.testorangapp.post.PostListAdapter;
+import com.example.testorangapp.post.PostTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -31,7 +31,7 @@ public class SlideshowFragment extends Fragment {
 
 
     private FragmentSlideshowBinding binding;
-    private FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<PostTable, PostListAdapter.ViewHolder> mFirebaseAdapter;
     private RecyclerView mRecyclerView ;
     Context mContext;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,8 +47,8 @@ public class SlideshowFragment extends Fragment {
         DatabaseReference mSeoulDatabaseReference = mRootDatabaseReference.child("Post").child("Category").child("1"); //profile이란 이름의 하위 데이터베이스
         mRecyclerView = binding.recyclerView;
         Query query = mSeoulDatabaseReference; //쿼리문의 수행위치 저장 (파이어베이스 리얼타임데이터베이스의 하위에있는 test 데이터를 가져오겠다는 뜻이다. ==> 메세지를 여기다 저장했으므로)
-        FirebaseRecyclerOptions<PostListTable> options = new FirebaseRecyclerOptions.Builder<PostListTable>() //어떤데이터를 어디서갖고올거며 어떠한 형태의 데이터클래스 결과를 반환할거냐 옵션을 정의한다.
-                .setQuery(query, PostListTable.class)
+        FirebaseRecyclerOptions<PostTable> options = new FirebaseRecyclerOptions.Builder<PostTable>() //어떤데이터를 어디서갖고올거며 어떠한 형태의 데이터클래스 결과를 반환할거냐 옵션을 정의한다.
+                .setQuery(query, PostTable.class)
                 .build();
         Log.e("QUREYEQUREWQ",""+query);
 

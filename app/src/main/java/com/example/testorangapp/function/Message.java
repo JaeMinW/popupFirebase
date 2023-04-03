@@ -2,7 +2,7 @@ package com.example.testorangapp.function;
 
 import android.widget.Toast;
 
-import com.example.testorangapp.RegisterActivity;
+import com.example.testorangapp.sign.RegisterActivity;
 
 public class Message {
     public void toastMessage(RegisterActivity registerActivity,String text){

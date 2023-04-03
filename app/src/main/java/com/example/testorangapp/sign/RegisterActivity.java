@@ -1,4 +1,4 @@
-package com.example.testorangapp;
+package com.example.testorangapp.sign;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.testorangapp.databinding.ActivityRegisterBinding;
 import com.example.testorangapp.function.Authentication;
 import com.example.testorangapp.function.Message;
-import com.example.testorangapp.model.UserModel;
-import com.example.testorangapp.sign.LoginViewModel;
+import com.example.testorangapp.model.FirebaseRepository;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -63,10 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean sendAuthPhoneNum(String phoneNum){
         String checkPhoneNum = "+82"+phoneNum;
         Log.d("checkPhoneNum ", phoneNum);
-        UserModel UserDB = new UserModel();
-        Log.d("GETFIREBASAUTH",""+UserDB.getmFirebaseAuth().getCurrentUser().toString());
+        FirebaseRepository getAuth = new FirebaseRepository();
+        Log.d("GETFIREBASAUTH",""+getAuth.GetAuth().getCurrentUser().toString());
         PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(UserDB.getmFirebaseAuth())  //mAuth가 null이라 안됨 ,,,
+                PhoneAuthOptions.newBuilder(getAuth.GetAuth())  //mAuth가 null이라 안됨 ,,,
                         .setPhoneNumber(checkPhoneNum)       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)
@@ -121,7 +120,6 @@ public class RegisterActivity extends AppCompatActivity {
             ///인터넷 연결 안되어 있을때 실패 메세지(함수로 만들것)
             String userEmail = activityRegisterBinding.etUserEmail.getText().toString().trim();
             String userPwd = activityRegisterBinding.etUserPwd.getText().toString().trim();
-            UserModel UserDB = new UserModel();
             Message message = new Message();
             //FirebaseRepository
             //userEmail

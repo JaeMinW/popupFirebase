@@ -1,4 +1,4 @@
-package com.example.testorangapp.adapter;
+package com.example.testorangapp.post;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,17 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.testorangapp.post.PostActivity;
 import com.example.testorangapp.R;
-import com.example.testorangapp.model.PostListTable;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, PostListAdapter.ViewHolder> {
+public class PostListAdapter extends FirebaseRecyclerAdapter<PostTable, PostListAdapter.ViewHolder> {
     Context context;
 
 
-    public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostListTable> options, Context context) {
+    public PostListAdapter(@NonNull FirebaseRecyclerOptions<PostTable> options, Context context) {
         super(options);
         Log.e("OPEROPEWQOR",""+options);
         // options는 파이어베이스 리사이클러뷰에 DB의 쿼리문옵션을 넣어 해당
@@ -32,7 +30,7 @@ public class PostListAdapter extends FirebaseRecyclerAdapter<PostListTable, Post
     }
 
     @Override //홀더가 갖고있는 뷰에 데이터들을 세팅해줍니다.
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PostListTable model) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PostTable model) {
         holder.titleTextView.setText(model.getTitle());
         Glide.with(context).load(model.getImageUrl()).into(holder.postImageView);
         //Glide.with(context).load(UploadInfo.getImageURL()).into(holder.imageView);

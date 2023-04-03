@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.testorangapp.post.PostTable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +37,10 @@ public class FirebaseRepository {
         this.mDatabase = FirebaseDatabase.getInstance().getReference("Post");
         Log.d("ADSF","ADSF");
     }
+    public FirebaseAuth GetAuth(){
 
+        return mAuth;
+    }
     public LiveData<List<PostTable>> getModelList() {
         MutableLiveData<List<PostTable>> modelList = new MutableLiveData<>();
         mDatabase.child("Category").child("1").addValueEventListener(new ValueEventListener() {

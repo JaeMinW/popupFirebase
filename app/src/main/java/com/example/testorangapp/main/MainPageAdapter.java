@@ -1,4 +1,4 @@
-package com.example.testorangapp.adapter;
+package com.example.testorangapp.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testorangapp.R;
-import com.example.testorangapp.model.PostTable;
+import com.example.testorangapp.post.PostTable;
 
 import java.util.ArrayList;
 

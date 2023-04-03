@@ -1,4 +1,4 @@
-package com.example.testorangapp.adapter;
+package com.example.testorangapp.post;
 
 import android.content.Context;
 import android.net.Uri;

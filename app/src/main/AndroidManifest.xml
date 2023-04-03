@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".sign.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

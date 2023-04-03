@@ -14,11 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testorangapp.adapter.MainPageAdapter;
 import com.example.testorangapp.databinding.FragmentHomeBinding;
+import com.example.testorangapp.main.MainPageAdapter;
 import com.example.testorangapp.model.FirebaseRepository;
-import com.example.testorangapp.model.PostTable;
 import com.example.testorangapp.post.PostActivity;
+import com.example.testorangapp.post.PostTable;
 import com.example.testorangapp.sign.LoginActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

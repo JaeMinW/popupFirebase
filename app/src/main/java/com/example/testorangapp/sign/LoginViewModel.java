@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.testorangapp.model.FirebaseRepository;
-import com.example.testorangapp.model.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.ValueEventListener;
@@ -12,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginViewModel extends ViewModel {
 
     private final FirebaseRepository mRepository;
-    private MutableLiveData<UserAccount> UserList = new MutableLiveData<>();
+    private MutableLiveData<UserTable> UserList = new MutableLiveData<>();
 
     public LoginViewModel() {
         mRepository = new FirebaseRepository();
