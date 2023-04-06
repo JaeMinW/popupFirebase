@@ -41,7 +41,6 @@ public class SlideshowFragment extends Fragment {
         View root = binding.getRoot();
 
 
-
         DatabaseReference mRootDatabaseReference = FirebaseDatabase.getInstance().getReference(); //"Post/Category/1/"데이터베이스 위치한곳
         DatabaseReference mSeoulDatabaseReference = mRootDatabaseReference.child("Post").child("Category").child("1"); //profile이란 이름의 하위 데이터베이스
         mRecyclerView = binding.recyclerView;

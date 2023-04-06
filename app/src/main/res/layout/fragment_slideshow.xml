@@ -24,7 +24,6 @@
             app:dotsStrokeWidth="1dp"
             app:stiffness="300"
             android:layout_gravity="center"/>
-
     </FrameLayout>
     <Space
         android:layout_width="match_parent"

@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.testorangapp.model.FirebaseRepository;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginViewModel extends ViewModel {
@@ -18,11 +16,13 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void signUp(String email, String password){
-        mRepository.signUp(email, password);
+
     }
 
-    public void logIn(String email, String password, OnCompleteListener<AuthResult> listener) {
-        mRepository.logIn(email, password, listener);
+
+
+    public void logIn(String email, String password) {
+        mRepository.logIn(email, password);
     }
 
     public void logOut() {

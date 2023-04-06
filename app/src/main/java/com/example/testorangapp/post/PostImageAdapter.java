@@ -54,6 +54,8 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.View
         return list.size();
     }
 
+
+
     class ViewHolderClass1 extends RecyclerView.ViewHolder{
 
         //post_image_row 에 있는 주소 값을 담기

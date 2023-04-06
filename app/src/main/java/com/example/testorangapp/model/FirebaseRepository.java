@@ -12,6 +12,7 @@ import com.example.testorangapp.post.PostTable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +39,6 @@ public class FirebaseRepository {
         Log.d("ADSF","ADSF");
     }
     public FirebaseAuth GetAuth(){
-
         return mAuth;
     }
     public LiveData<List<PostTable>> getModelList() {
@@ -132,21 +132,41 @@ public class FirebaseRepository {
         });
     }
 
-    public void signUp(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+    public void signUp(String email, String pwd, String name, String ph, String birth, String sex, boolean pushFlag) {
+
+
+        mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(AuthResult authResult) {
-                Log.d("ONSESSENSENSE",""+authResult);
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                //Set Data,in Firebase S
+                //mDatabase.child("UserList").push().setValue()
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
             }
         });
     }
 
-    public void logIn(String email, String password, OnCompleteListener<AuthResult> listener) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(listener);
+    public void logIn(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Log.d("ONSESSENSENSE",""+authResult);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+            }
+        });
     }
 
     public void logOut() {

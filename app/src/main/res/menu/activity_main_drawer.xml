@@ -20,5 +20,9 @@
             android:id="@+id/nav_testshow"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_testshow" />
+        <item
+            android:id="@+id/nav_post_home"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="PostHOme" />
     </group>
 </menu>
