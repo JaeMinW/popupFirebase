@@ -161,8 +161,87 @@
                     android:hint="비번 재확인 완료"
                     android:textColorHint="#DC0B0B" />
 
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:textSize="18dp"
+                    android:text="약관 모두 동의" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/checkBox4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="1"
+                        android:text="마케팅 동의 (선택)" />
+
+                    <ImageView
+                        android:id="@+id/mktGo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/checkBox5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="1"
+                        android:text="정보활용 동의(필수)" />
+
+
+                    <ImageView
+                        android:id="@+id/infoGo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/checkBox6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="1"
+                        android:text="정보활용 동의(필수)" />
+
+
+                    <ImageView
+                        android:id="@+id/infoGoo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"/>
 
             </LinearLayout>
+
+
 
         </LinearLayout>
 

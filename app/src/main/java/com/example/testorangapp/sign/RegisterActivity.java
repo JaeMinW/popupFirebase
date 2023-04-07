@@ -124,13 +124,11 @@ public class RegisterActivity extends AppCompatActivity {
             //FirebaseRepository
             //userEmail
             //userPwd;
-
             //mvvm
-            viewModel.logIn(userEmail, userPwd);
+            viewModel.signUp(userEmail, userPwd);
 
-//            FirebaseRepository firebaseRepository = new FirebaseRepository();
-//            firebaseRepository.createUser(userEmail, userPwd, getApplicationContext());
-
+            //FirebaseRepository firebaseRepository = new FirebaseRepository();
+            //firebaseRepository.createUser(userEmail, userPwd, getApplicationContext());
         }
     }
 }

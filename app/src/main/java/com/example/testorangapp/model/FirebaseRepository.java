@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.testorangapp.post.PostTable;
+import com.example.testorangapp.sign.UserTable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -134,13 +135,22 @@ public class FirebaseRepository {
 
     public void signUp(String email, String pwd, String name, String ph, String birth, String sex, boolean pushFlag) {
 
-
         mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                //Set Data,in Firebase S
-                //mDatabase.child("UserList").push().setValue()
+                //
+                if(task.isSuccessful()){
+                    UserTable userTable =new UserTable();
+                    userTable.setUuid(mAuth.getCurrentUser().getUid());
+                    userTable.setEmail(mAuth.getCurrentUser().getEmail());
+                    userTable.setPwd(pwd);
+                    userTable.setBirth(birth);
+                    userTable.setSex(sex);
+                    userTable.setName(name);
+                    userTable.setPushFlag(pushFlag);
+                    mDatabase.child("UserAccount").child(userTable.getUuid()).push().setValue(userTable);
 
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

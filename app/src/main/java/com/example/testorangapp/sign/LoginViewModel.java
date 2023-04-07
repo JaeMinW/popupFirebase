@@ -16,6 +16,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void signUp(String email, String password){
+        mRepository.signUp(email,password,"inho","0105555555","19998123","남",true);
 
     }
 

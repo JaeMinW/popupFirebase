@@ -11,6 +11,8 @@ public class UserTable {
     private String birth;
     private String sex;
 
+    private String idToken;
+
     private String createdDate;
 
     private boolean adminFlag;
@@ -20,6 +22,23 @@ public class UserTable {
     public UserTable() {
         this.adminFlag = false;
         this.deletedFlag = false;
+        this.region ="은평구";
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getIdToken() {
+        return idToken;
+    }
+
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
     }
 
     public String getUuid() {
