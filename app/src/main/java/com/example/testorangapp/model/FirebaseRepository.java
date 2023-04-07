@@ -32,11 +32,12 @@ import java.util.concurrent.TimeUnit;
 
 public class FirebaseRepository {
     private final FirebaseAuth mAuth;
-    private final DatabaseReference mDatabase;
-
+    private final DatabaseReference mUserDatabase;
+    private final DatabaseReference mPostDatabase;
     public FirebaseRepository() {
         this.mAuth = FirebaseAuth.getInstance();
-        this.mDatabase = FirebaseDatabase.getInstance().getReference("Post");
+        this.mUserDatabase = FirebaseDatabase.getInstance().getReference("UserAccount");
+        this.mPostDatabase =FirebaseDatabase.getInstance().getReference("PostAccount");
         Log.d("ADSF","ADSF");
     }
     public FirebaseAuth GetAuth(){
@@ -44,7 +45,7 @@ public class FirebaseRepository {
     }
     public LiveData<List<PostTable>> getModelList() {
         MutableLiveData<List<PostTable>> modelList = new MutableLiveData<>();
-        mDatabase.child("Category").child("1").addValueEventListener(new ValueEventListener() {
+        mUserDatabase.child("Category").child("1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<PostTable> models = new ArrayList<>();
@@ -148,7 +149,7 @@ public class FirebaseRepository {
                     userTable.setSex(sex);
                     userTable.setName(name);
                     userTable.setPushFlag(pushFlag);
-                    mDatabase.child("UserAccount").child(userTable.getUuid()).push().setValue(userTable);
+                    mUserDatabase.child(userTable.getUuid()).setValue(userTable);
 
                 }
             }
@@ -184,11 +185,11 @@ public class FirebaseRepository {
     }
 
     public void updateUser(String userId, String username) {
-        mDatabase.child("users").child(userId).child("username").setValue(username);
+        mUserDatabase.child("users").child(userId).child("username").setValue(username);
     }
 
     public void getUser(String userId, ValueEventListener listener) {
-        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(listener);
+        mUserDatabase.child("users").child(userId).addListenerForSingleValueEvent(listener);
     }
 
 }
