@@ -134,7 +134,8 @@ public class FirebaseRepository {
         });
     }
 
-    public void signUp(String email, String pwd, String name, String ph, String birth, String sex, boolean pushFlag) {
+    public void signUp(String email, String pwd, String name, String ph, String birth, String sex,String idToken, boolean pushFlag) {
+        Log.d("ASDSD1111A",pushFlag+"");
 
         mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -148,15 +149,16 @@ public class FirebaseRepository {
                     userTable.setBirth(birth);
                     userTable.setSex(sex);
                     userTable.setName(name);
+                    userTable.setIdToken(idToken);
                     userTable.setPushFlag(pushFlag);
                     mUserDatabase.child(userTable.getUuid()).setValue(userTable);
-
+                    Log.d("ASDSDA",pushFlag+"");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                Log.d("sadf",e+"f");
             }
         });
     }

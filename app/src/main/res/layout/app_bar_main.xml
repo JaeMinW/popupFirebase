@@ -51,6 +51,7 @@
         app:layout_anchorGravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:visibility="gone"/>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_post"
         app:icon="@drawable/ic_launcher_background"
